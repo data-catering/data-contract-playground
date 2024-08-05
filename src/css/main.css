@@ -1,0 +1,110 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+}
+
+.top-banner {
+    height: fit-content;
+    background-color: #95aab6;
+    display: flex;
+    justify-content: space-between;
+}
+
+.top-banner span {
+    font-size: 17px;
+    align-content: center;
+    padding: 5px;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    padding: 5px;
+    height: 30px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #95aab6;
+}
+
+.topnav a {
+    color: black;
+    float: left;
+    text-align: center;
+    padding: 8px 10px;
+    text-decoration: none;
+    font-size: 17px;
+
+    &:hover {
+        color: #45405f;
+        background-color: lightgrey;
+    }
+}
+
+.data-contract-type-container {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.github-links-container {
+    padding-left: 10px;
+}
+
+.github-link {
+    display: none;
+}
+
+.code {
+    width: 80%;
+    height: 75vh;
+}
+
+footer {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    bottom: 0;
+    padding: 10px 8px;
+    background-color: #95aab6;
+}
+
+.footer-container a {
+    color: #f5f6f7;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+        color: #45405f;
+    }
+}
+
+.footer-container ul {
+    display: flex;
+    padding: 0;
+    gap: 24px;
+    list-style-type: none;
+}
+
+.copyright {
+    padding: 4px 0;
+    text-align: center;
+    color: #95AAB6;
+    background-color: #f5f6f7;
+}
