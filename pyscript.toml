@@ -1,0 +1,47 @@
+name = "Data Contract Playground"
+description = "Playground site for creating/validating data contracts"
+packages = [
+  "pyyaml",
+  "fastjsonschema",
+  "requests",
+  "pydantic"
+]
+
+[files]
+"example/data-contract-specification/data-contract-specification.yaml" = "./example/data-contract-specification/data-contract-specification.yaml"
+
+[[fetch]]
+files = [
+  "data_contract.py",
+  "export/exporter.py",
+  "export/exporter_factory.py",
+  "export/avro_converter.py",
+  "export/avro_idl_converter.py",
+  "export/bigquery_converter.py",
+  "export/csv_type_converter.py",
+  "export/dbml_converter.py",
+  "export/dbt_converter.py",
+  "export/go_converter.py",
+  "export/great_expectations_converter.py",
+  "export/html_export.py",
+  "export/jsonschema_converter.py",
+  "export/odcs_converter.py",
+  "export/protobuf_converter.py",
+  "export/pydantic_converter.py",
+  "export/rdf_converter.py",
+  "export/sodacl_converter.py",
+  "export/spark_converter.py",
+  "export/sql_converter.py",
+  "export/sql_type_converter.py",
+  "export/terraform_converter.py",
+  "imports/odcs_importer.py",
+  "imports/importer.py",
+  "lint/files.py",
+  "lint/resolve.py",
+  "lint/schema.py",
+  "lint/urls.py",
+  "model/data_contract_specification.py",
+  "model/exceptions.py",
+]
+from = "datacontract-cli/datacontract"
+to_folder = "datacontract"

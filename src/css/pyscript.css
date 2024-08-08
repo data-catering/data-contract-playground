@@ -1,0 +1,61 @@
+#loading {
+  outline: none;
+  border: none;
+  background: transparent
+}
+
+.code-containers {
+  display: flex;
+  width: 100%;
+}
+
+.code-container-options {
+  margin: 5px;
+}
+
+.convert-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  margin: 10px;
+}
+
+.convert-button-container {
+
+}
+
+.convert-text {
+  left: 10px;
+  position: absolute;
+}
+
+#convert-btn {
+  color: white;
+  background-color: #1D3354;
+  padding: 10px;
+
+  &:hover {
+    background-color: #467599;
+    cursor: pointer;
+  }
+}
+
+.code-container {
+  flex: 1;
+  margin: 10px;
+}
+
+.code-container-input {
+  float: left;
+}
+
+.code-container-output {
+  float: right;
+}
+
+.code {
+  width: 100%;
+  height: 80vh;
+}

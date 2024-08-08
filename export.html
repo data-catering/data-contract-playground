@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+
+<html>
 <head>
     <title>Data Contract Playground</title>
 
@@ -7,17 +8,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
+    <!-- PyScript CSS -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+
+    <!-- This script tag bootstraps PyScript -->
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
     <script src="https://www.unpkg.com/ace-builds@latest/src-noconflict/ace.js"></script>
     <script src="https://www.unpkg.com/ace-builds@latest/src-noconflict/ext-language_tools.js"></script>
-    <script src="https://www.unpkg.com/ace-builds@latest/src-noconflict/mode-yaml.js"></script>
     <script src="https://www.unpkg.com/ace-builds@latest/src-noconflict/theme-chrome.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ace-linters"></script>
 
+    <script type="module">
+        const loading = document.getElementById('loading');
+        addEventListener('py:ready', () => loading.close());
+        loading.showModal();
+    </script>
+
     <link rel="icon" href="./image/data_catering_transparent.svg"/>
     <link rel="stylesheet" href="./src/css/main.css" type="text/css"/>
+    <link rel="stylesheet" href="./src/css/pyscript.css" type="text/css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
+<dialog id="loading">
+    <h1>Loading...</h1>
+</dialog>
+
 <div class="top-banner">
   <span>
       <div class="logo-title">
@@ -33,38 +50,43 @@
     <a href="export.html">Export</a>
     <a href="index.html">Validate</a>
 </nav>
-<div class="data-contract-type-container">
-    <label for="data-contract-type">Choose type:</label>
 
-    <select name="data-contract-type" id="data-contract-type">
-        <option value="dataContractSpecification">Data Contract Specification</option>
-        <option value="dataProductSpecification">Data Product Specification</option>
-        <option value="odcs" selected>Open Data Contract Standard (ODCS)</option>
-    </select>
-    <div id="github-links" class="github-links-container">
-        <div id="odcs-github-link" class="github-link">
-            <a class="github-button" href="https://github.com/bitol-io/open-data-contract-standard"
-               data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star"
-               data-size="large" data-show-count="true" data-hello="world" aria-description="odcs"
-               aria-label="Star bitol-io/open-data-contract-standard on GitHub">Star</a>
-        </div>
-        <div id="dataContractSpecification-github-link" class="github-link">
-            <a class="github-button" href="https://github.com/datacontract/datacontract-specification"
-               data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star"
-               data-size="large" data-show-count="true"
-               aria-label="Star datacontract/datacontract-specification on GitHub">Star</a>
-        </div>
-        <div id="dataProductSpecification-github-link" class="github-link">
-            <a class="github-button" href="https://github.com/datamesh-architecture/dataproduct-specification"
-               data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star"
-               data-size="large" data-show-count="true"
-               aria-label="Star datamesh-architecture/dataproduct-specification on GitHub">Star</a>
-        </div>
-    </div>
+<div>
+    <section>
+        <main>
+            <div class="convert-container">
+                <div class="convert-text">
+                    <p>Powered by <a href="https://github.com/datacontract/datacontract-cli">datacontract-cli</a></p>
+                </div>
+                <div class="convert-button-container">
+                    <button id="convert-btn" type="button" py-click="export_to_output_type">
+                        Convert
+                    </button>
+                </div>
+            </div>
+            <div class="code-containers">
+                <div class="code-container code-container-input" id="convert-input-container">
+                    <div class="code-container-options">
+                        <label for="convert-input-type">Choose input type:</label>
+
+                        <select name="convert-input-type" id="convert-input-type"></select>
+                    </div>
+                    <div class="code" id="input-yaml"></div>
+                </div>
+                <div class="code-container code-container-output" id="convert-output-container">
+                    <div class="code-container-options">
+                        <label for="convert-output-type">Choose output type:</label>
+
+                        <select name="convert-output-type" id="convert-output-type"></select>
+                    </div>
+                    <div class="code" id="output-text"></div>
+                </div>
+            </div>
+        </main>
+        <script type="py" src="main.py" config="./pyscript.toml"></script>
+    </section>
 </div>
-<div id="yaml-container">
-    <div class="code" id="base-yaml"></div>
-</div>
+
 <footer>
     <div class="footer-container">
         <a class="link footer-left" href="index.html">Data Contract Playground</a>
@@ -80,7 +102,7 @@
         <a class="link footer-right" href="https://data.catering/about/#contact" target="_blank">contact</a>
     </div>
 </footer>
-<script type="module" src="src/index.js"></script>
+<script type="module" src="src/export.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>
