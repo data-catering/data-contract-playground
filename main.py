@@ -52,19 +52,27 @@ class AvroIdlOutput(OutputDetails):
     name = "avro-idl"
     display_name = "Avro IDL"
     additional_opts = {
-        "editor_mode": "json"}  # TODO AttributeError: 'DataContractSpecification' object has no attribute 'model_copy'
+        "editor_mode": "json",
+        "disabled": ""
+    }
+    # TODO AttributeError: 'DataContractSpecification' object has no attribute 'model_copy'
 
 
 class BigQueryOutput(OutputDetails):
     name = "bigquery"
     display_name = "BigQuery"
     additional_opts = {
-        "editor_mode": "sql"}  # TODO Export to bigquery requires selecting a bigquery server from the data contract.
+        "editor_mode": "sql",
+        "disabled": ""
+    }
+    # TODO Export to bigquery requires selecting a bigquery server from the data contract.
 
 
 class DbmlOutput(OutputDetails):
     name = "dbml"
-    display_name = "DBML"  # TODO Module dbml could not be loaded
+    display_name = "DBML"
+    additional_opts = {"disabled": ""}
+    # TODO Module dbml could not be loaded
 
 
 class DbtOutput(OutputDetails):
@@ -86,7 +94,8 @@ class DbtStagingSqlOutput(OutputDetails):
 class GoOutput(OutputDetails):
     name = "go"
     display_name = "Go"
-    additional_opts = {"editor_mode": "go"}  # TODO doesn't seem to use go mode
+    additional_opts = {"editor_mode": "go"}
+    # TODO doesn't seem to use go mode
 
 
 class GreatExpectationsOutput(OutputDetails):
@@ -98,7 +107,8 @@ class GreatExpectationsOutput(OutputDetails):
 class HtmlOutput(OutputDetails):
     name = "html"
     display_name = "HTML"
-    additional_opts = {"editor_mode": "html"}  # TODO Module html could not be loaded
+    additional_opts = {"editor_mode": "html", "disabled": ""}
+    # TODO Module html could not be loaded
 
 
 class JsonSchemaOutput(OutputDetails):
@@ -115,19 +125,22 @@ class OdcsOutput(OutputDetails):
 class ProtobufOutput(OutputDetails):
     name = "protobuf"
     display_name = "Protobuf"
-    additional_opts = {"editor_mode": "protobuf"}  # TODO doesn't seem to use protobuf mode
+    additional_opts = {"editor_mode": "protobuf"}
+    # TODO doesn't seem to use protobuf mode
 
 
 class PydanticModelOutput(OutputDetails):
     name = "pydantic-model"
     display_name = "Pydantic Model"
-    additional_opts = {"editor_mode": "python"}  # TODO doesn't seem to use python mode
+    additional_opts = {"editor_mode": "python"}
+    # TODO doesn't seem to use python mode
 
 
 class RdfOutput(OutputDetails):
     name = "rdf"
     display_name = "RDF"
-    additional_opts = {"editor_mode": "xml"}  # TODO Module rdf could not be loaded.
+    additional_opts = {"editor_mode": "xml", "disabled": ""}
+    # TODO Module rdf could not be loaded.
 
 
 class SodaClOutput(OutputDetails):
@@ -137,7 +150,9 @@ class SodaClOutput(OutputDetails):
 
 class SparkOutput(OutputDetails):
     name = "spark"
-    display_name = "Spark"  # TODO Module spark could not be loaded.
+    display_name = "Spark"
+    additional_opts = {"editor_mode": "sql", "disabled": ""}
+    # TODO Module spark could not be loaded.
 
 
 class SqlOutput(OutputDetails):
@@ -155,7 +170,8 @@ class SqlQueryOutput(OutputDetails):
 
 class TerraformOutput(OutputDetails):
     name = "terraform"
-    display_name = "Terraform"  #TODO requires servers to be populated
+    display_name = "Terraform"
+    # TODO requires servers to be populated
 
 
 input_details = [OdcsInputDetails(), DataContractSpecInputDetails()]
