@@ -1,0 +1,94 @@
+{
+    "fields": [
+      {
+        "name": "ordertime",
+        "doc": "My Field",
+        "type": "long"
+      },
+      {
+        "name": "orderid",
+        "type": "int"
+      },
+      {
+        "name": "itemid",
+        "type": "string"
+      },
+      {
+        "name": "material",
+        "doc": "An optional field",
+        "type": [
+            "null",
+            {
+                "type": "string",
+                "avro.java.string": "String"
+            }
+        ]
+      },
+      {
+        "name": "orderunits",
+        "type": "double"
+      },
+      {
+        "name": "emailaddresses",
+        "doc": "Different email addresses of a customer",
+        "type": {
+          "type": "array",
+          "items": "string",
+          "format": "email",
+          "pattern": "^.*@.*$"
+        }
+      },
+      {
+        "name": "address",
+        "type": {
+          "fields": [
+            {
+              "name": "city",
+              "type": "string"
+            },
+            {
+              "name": "state",
+              "type": "string"
+            },
+            {
+              "name": "zipcode",
+              "type": "long"
+            }
+          ],
+          "name": "address",
+          "type": "record"
+        }
+      },
+      {
+        "name": "status",
+        "doc": "order status",
+        "type": {
+          "type": "enum",
+          "name": "Status",
+          "symbols": ["PLACED", "SHIPPED", "DELIVERED", "CANCELLED"]
+        }
+      },
+      {
+        "name": "metadata",
+        "doc": "Additional metadata about the order",
+        "type": {
+          "type": "map",
+          "values": {
+            "type": "record",
+            "name": "MetadataValue",
+            "fields": [
+              {"name": "value", "type": "string"},
+              {"name": "type", "type": {"type": "enum", "name": "MetadataType", "symbols": ["STRING", "LONG", "DOUBLE"]}},
+              {"name": "timestamp", "type": "long"},
+              {"name": "source", "type": "string"}
+            ]
+          }
+        }
+      }
+
+    ],
+    "name": "orders",
+    "doc": "My Model",
+    "type": "record",
+    "namespace": "com.sample.schema"
+}

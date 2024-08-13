@@ -2,7 +2,7 @@
   "name": "data-contract-playground",
   "version": "1.0.0",
   "description": "Playground site for creating/validating data contracts",
-  "main": "src/index.js",
+  "main": "src/js/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

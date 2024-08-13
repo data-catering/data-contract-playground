@@ -1,14 +1,27 @@
 name = "Data Contract Playground"
-description = "Playground site for creating/validating data contracts"
+description = "Playground site for creating, exporting and validating data contracts"
 packages = [
   "pyyaml",
   "fastjsonschema",
   "requests",
-  "pydantic"
+  "avro",
+  "pydantic",
+  "simple-ddl-parser",
+  "rdflib",
+  "jinja_partials",
+  "pytz"
 ]
 
 [files]
+"src/python/model.py" = "src/python/model.py"
+"src/python/common.py" = "src/python/common.py"
 "example/data-contract-specification/data-contract-specification.yaml" = "./example/data-contract-specification/data-contract-specification.yaml"
+"example/avro/orders.avsc" = "./example/avro/orders.avsc"
+"example/bigquery/complete_table_schema.json" = "./example/bigquery/complete_table_schema.json"
+"example/dbt/manifest_jaffle_duckdb.json" = "./example/dbt/manifest_jaffle_duckdb.json"
+"example/jsonschema/orders_union-types.json" = "./example/jsonschema/orders_union-types.json"
+"example/sql/customer.sql" = "./example/sql/customer.sql"
+"example/unity/unity_table_schema.json" = "./example/unity/unity_table_schema.json"
 
 [[fetch]]
 files = [
@@ -34,14 +47,31 @@ files = [
   "export/sql_converter.py",
   "export/sql_type_converter.py",
   "export/terraform_converter.py",
-  "imports/odcs_importer.py",
   "imports/importer.py",
+  "imports/importer_factory.py",
+  "imports/avro_importer.py",
+  "imports/bigquery_importer.py",
+  "imports/dbt_importer.py",
+  "imports/jsonschema_importer.py",
+  "imports/odcs_importer.py",
+  "imports/sql_importer.py",
+  "imports/unity_importer.py",
   "lint/files.py",
   "lint/resolve.py",
   "lint/schema.py",
   "lint/urls.py",
   "model/data_contract_specification.py",
   "model/exceptions.py",
+  "templates/datacontract.html",
+  "templates/index.html",
+  "templates/partials/datacontract_information.html",
+  "templates/partials/datacontract_servicelevels.html",
+  "templates/partials/datacontract_terms.html",
+  "templates/partials/definition.html",
+  "templates/partials/example.html",
+  "templates/partials/model_field.html",
+  "templates/partials/server.html",
+  "templates/style/output.css",
 ]
 from = "datacontract-cli/datacontract"
 to_folder = "datacontract"

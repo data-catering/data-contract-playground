@@ -3,6 +3,18 @@ Playground site for creating/validating data contracts
 
 [Try here.](https://data-catering.github.io/data-contract-playground/)
 
+## Create
+
+Given input data from a data source, create a data contract from it.
+Uses [datacontract-cli](https://github.com/datacontract/datacontract-cli) to create data contracts.
+Current input formats supported:
+- Avro
+- BigQuery
+- DBT
+- JSON Schema
+- SQL
+- Unity Catalog
+
 ## Export
 
 Given a data contract, export it to different formats.
