@@ -1,9 +1,16 @@
 
 export const defaultJsonSchemaName = "odcs"
+export const defaultValidateJsonSchemaName = "odcs-v3"
 
 export const odcsDetails = {
     schemaUrl: "https://raw.githubusercontent.com/bitol-io/open-data-contract-standard/main/schema/odcs-json-schema-latest.json",
     exampleUrl: "https://raw.githubusercontent.com/bitol-io/open-data-contract-standard/main/docs/examples/all/full-example.odcs.yaml",
+    githubUrl: "https://github.com/bitol-io/open-data-contract-standard"
+}
+
+export const odcsV3Details = {
+    schemaUrl: "https://raw.githubusercontent.com/bitol-io/open-data-contract-standard/dev_v3/schema/odcs-json-schema-v3.0.0.json",
+    exampleUrl: "https://raw.githubusercontent.com/bitol-io/open-data-contract-standard/dev_v3/docs/examples/all/full-example.odcs.yaml",
     githubUrl: "https://github.com/bitol-io/open-data-contract-standard"
 }
 

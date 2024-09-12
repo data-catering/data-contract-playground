@@ -32,6 +32,7 @@ Current formats supported:
 - SodaCL
 - SQL
 - SQL Query
+- SQLAlchemy
 - Terraform
 
 ## Validate

@@ -86,6 +86,7 @@ class DataContractSpecDetails(DataSourceDetails):
 class DbmlDetails(DataSourceDetails):
     name = "dbml"
     display_name = "DBML"
+    example_file = "example/dbml/dbml.txt"
 
 
 class DbtDetails(DataSourceDetails):
@@ -178,6 +179,12 @@ class SqlDetails(DataSourceDetails):
 class SqlQueryDetails(DataSourceDetails):
     name = "sql-query"
     display_name = "SQL Query"
+    additional_opts = {"editor_mode": "sql"}
+
+
+class SqlAlchemyDetails(DataSourceDetails):
+    name = "sqlalchemy"
+    display_name = "SQLAlchemy"
     additional_opts = {"editor_mode": "sql"}
 
 

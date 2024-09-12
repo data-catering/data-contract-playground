@@ -2,12 +2,14 @@ import {setJsonSchema, setupEditorSession} from "./util.js";
 import {
     dataContractSpecificationDetails,
     dataProductSpecificationDetails,
-    defaultJsonSchemaName,
-    odcsDetails
+    defaultValidateJsonSchemaName,
+    odcsDetails,
+    odcsV3Details
 } from "./config.js";
 
 const jsonSchemaMap = new Map()
 jsonSchemaMap.set("odcs", odcsDetails)
+jsonSchemaMap.set("odcs-v3", odcsV3Details)
 jsonSchemaMap.set("dataContractSpecification", dataContractSpecificationDetails)
 jsonSchemaMap.set("dataProductSpecification", dataProductSpecificationDetails)
 
@@ -20,10 +22,10 @@ async function initAceEditor() {
     ace.require("ace/ext/language_tools")
     setupEditorSession(editor, "ace/mode/yaml")
 
-    githubLinks.dataset.prevValue = defaultJsonSchemaName
-    const githubLink = document.getElementById(`${defaultJsonSchemaName}-github-link`)
+    githubLinks.dataset.prevValue = defaultValidateJsonSchemaName
+    const githubLink = document.getElementById(`${defaultValidateJsonSchemaName}-github-link`)
     githubLink.style.display = "block"
-    await setJsonSchema(jsonSchemaMap, exampleMap, editor, provider, defaultJsonSchemaName)
+    await setJsonSchema(jsonSchemaMap, exampleMap, editor, provider, defaultValidateJsonSchemaName)
 }
 
 function initSelectSchemaListener() {

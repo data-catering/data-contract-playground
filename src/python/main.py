@@ -11,7 +11,7 @@ from src.python.common import set_options, set_editor_mode, input_option_id_pref
 from src.python.model import OdcsDetails, DataContractSpecDetails, AvroDetails, AvroIdlDetails, BigQueryDetails, \
     DbmlDetails, DbtDetails, DbtSourcesDetails, DbtStagingSqlDetails, GoDetails, GreatExpectationsDetails, HtmlDetails, \
     JsonSchemaDetails, ProtobufDetails, PydanticModelDetails, RdfDetails, SodaClDetails, SparkDetails, SqlDetails, \
-    SqlQueryDetails, TerraformDetails, DataContractSpec
+    SqlQueryDetails, SqlAlchemyDetails, TerraformDetails, DataContractSpec
 
 convert_output_type = pydom["#convert-output-type"][0]
 ace = window.ace
@@ -23,7 +23,7 @@ output_details = [
     AvroDetails(), AvroIdlDetails(), BigQueryDetails(), DbmlDetails(), DbtDetails(), DbtSourcesDetails(),
     DbtStagingSqlDetails(), GoDetails(), GreatExpectationsDetails(), HtmlDetails(), JsonSchemaDetails(),
     OdcsDetails(), ProtobufDetails(), PydanticModelDetails(), RdfDetails(), SodaClDetails(), SparkDetails(),
-    SqlDetails(), SqlQueryDetails(), TerraformDetails()
+    SqlDetails(), SqlQueryDetails(), SqlAlchemyDetails(), TerraformDetails()
 ]
 
 data_contract_examples = {}

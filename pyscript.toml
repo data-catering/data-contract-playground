@@ -19,6 +19,7 @@ packages = [
 "example/avro/orders.avsc" = "./example/avro/orders.avsc"
 "example/bigquery/complete_table_schema.json" = "./example/bigquery/complete_table_schema.json"
 "example/dbt/manifest_jaffle_duckdb.json" = "./example/dbt/manifest_jaffle_duckdb.json"
+"example/dbml/dbml.txt" = "./example/dbml/dbml.txt"
 "example/jsonschema/orders_union-types.json" = "./example/jsonschema/orders_union-types.json"
 "example/sql/customer.sql" = "./example/sql/customer.sql"
 "example/unity/unity_table_schema.json" = "./example/unity/unity_table_schema.json"
@@ -46,11 +47,13 @@ files = [
   "export/spark_converter.py",
   "export/sql_converter.py",
   "export/sql_type_converter.py",
+  "export/sqlalchemy_converter.py",
   "export/terraform_converter.py",
   "imports/importer.py",
   "imports/importer_factory.py",
   "imports/avro_importer.py",
   "imports/bigquery_importer.py",
+  "imports/dbml_importer.py",
   "imports/dbt_importer.py",
   "imports/jsonschema_importer.py",
   "imports/odcs_importer.py",
