@@ -21,6 +21,7 @@ Given a data contract, export it to different formats.
 Uses [datacontract-cli](https://github.com/datacontract/datacontract-cli) to export.
 Current formats supported:
 - Avro
+- Data Caterer
 - DBT
 - DBT Sources
 - DBT Staging SQL

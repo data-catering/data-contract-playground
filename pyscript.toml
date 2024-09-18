@@ -33,6 +33,7 @@ files = [
   "export/avro_idl_converter.py",
   "export/bigquery_converter.py",
   "export/csv_type_converter.py",
+  "export/data_caterer_converter.py",
   "export/dbml_converter.py",
   "export/dbt_converter.py",
   "export/go_converter.py",

@@ -78,6 +78,11 @@ class BigQueryDetails(DataSourceDetails):
     # TODO Export to bigquery requires selecting a bigquery server from the data contract.
 
 
+class DataCatererDetails(DataSourceDetails):
+    name = "data-caterer"
+    display_name = "Data Caterer"
+
+
 class DataContractSpecDetails(DataSourceDetails):
     name = "dataContractSpecification"
     display_name = "Data Contract Specification"

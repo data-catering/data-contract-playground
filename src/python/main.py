@@ -11,7 +11,7 @@ from src.python.common import set_options, set_editor_mode, input_option_id_pref
 from src.python.model import OdcsDetails, DataContractSpecDetails, AvroDetails, AvroIdlDetails, BigQueryDetails, \
     DbmlDetails, DbtDetails, DbtSourcesDetails, DbtStagingSqlDetails, GoDetails, GreatExpectationsDetails, HtmlDetails, \
     JsonSchemaDetails, ProtobufDetails, PydanticModelDetails, RdfDetails, SodaClDetails, SparkDetails, SqlDetails, \
-    SqlQueryDetails, SqlAlchemyDetails, TerraformDetails, DataContractSpec
+    SqlQueryDetails, SqlAlchemyDetails, TerraformDetails, DataContractSpec, DataCatererDetails
 
 convert_output_type = pydom["#convert-output-type"][0]
 ace = window.ace
@@ -20,7 +20,7 @@ editor_output = ace.edit("output-text")
 
 input_details = [OdcsDetails(), DataContractSpecDetails()]
 output_details = [
-    AvroDetails(), AvroIdlDetails(), BigQueryDetails(), DbmlDetails(), DbtDetails(), DbtSourcesDetails(),
+    AvroDetails(), AvroIdlDetails(), BigQueryDetails(), DataCatererDetails(), DbmlDetails(), DbtDetails(), DbtSourcesDetails(),
     DbtStagingSqlDetails(), GoDetails(), GreatExpectationsDetails(), HtmlDetails(), JsonSchemaDetails(),
     OdcsDetails(), ProtobufDetails(), PydanticModelDetails(), RdfDetails(), SodaClDetails(), SparkDetails(),
     SqlDetails(), SqlQueryDetails(), SqlAlchemyDetails(), TerraformDetails()
