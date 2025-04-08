@@ -1,3 +1,4 @@
 [submodule "datacontract-cli"]
 	path = datacontract-cli
 	url = https://github.com/datacontract/datacontract-cli.git
+	branch = main

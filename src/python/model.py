@@ -2,7 +2,7 @@ import copy
 from typing import Dict
 
 import yaml
-from datacontract.model.data_contract_specification import DataContractSpecification, Contact, Info, Terms, Field, Model
+from datacontract.model.data_contract_specification import DataContractSpecification, Contact, Info, Terms, Field, Model, Server
 
 
 class MyContact(Contact):
@@ -12,8 +12,12 @@ class MyContact(Contact):
 
 
 class MyInfo(Info):
-    contact: MyContact = None
+    contact: MyContact = MyContact()
+    dataProduct: str = None
+    tenant: str = None
     model_extra: dict = {}
+    model_fields: dict = {}
+    dbt_version: str = None
 
 
 class MyTerms(Terms):
@@ -34,11 +38,21 @@ class MyField(Field):
 
 class MyModel(Model):
     fields: Dict[str, MyField] = {}
+    model_extra: dict = {}
+
+
+class MyServer(Server):
+    model_extra: dict = {}
+
+    @property
+    def model_fields(self):
+        return self.__fields__
 
 
 class DataContractSpec(DataContractSpecification):
     info: MyInfo = MyInfo()
     terms: MyTerms = MyTerms()
+    servers: Dict[str, MyServer] = {}
     models: Dict[str, MyModel] = {}
 
     def to_yaml(self):
@@ -74,7 +88,7 @@ class BigQueryDetails(DataSourceDetails):
     name = "bigquery"
     display_name = "BigQuery"
     example_file = "example/bigquery/complete_table_schema.json"
-    additional_opts = {"editor_mode": "json"}
+    additional_opts = {"editor_mode": "json", "disabled": ""}
     # TODO Export to bigquery requires selecting a bigquery server from the data contract.
 
 
@@ -98,7 +112,7 @@ class DbtDetails(DataSourceDetails):
     name = "dbt"
     display_name = "DBT"
     example_file = "example/dbt/manifest_jaffle_duckdb.json"
-
+    additional_opts = {"disabled": ""}
 
 class DbtSourcesDetails(DataSourceDetails):
     name = "dbt-sources"
@@ -120,7 +134,7 @@ class GoDetails(DataSourceDetails):
 class GreatExpectationsDetails(DataSourceDetails):
     name = "great-expectations"
     display_name = "Great Expectations"
-    additional_opts = {"editor_mode": "json"}
+    additional_opts = {"editor_mode": "json", "disabled": ""}
 
 
 class HtmlDetails(DataSourceDetails):
@@ -203,4 +217,4 @@ class UnityDetails(DataSourceDetails):
     name = "unity"
     display_name = "Unity Catalog"
     example_file = "example/unity/unity_table_schema.json"
-    additional_opts = {"editor_mode": "json"}
+    additional_opts = {"editor_mode": "json", "disabled": ""}

@@ -9,8 +9,8 @@ from pyscript import document, window
 from pyweb import pydom
 
 from src.python.common import set_options, set_editor_mode, input_option_id_prefix, output_option_id_prefix
-from src.python.model import AvroDetails, DbtDetails, JsonSchemaDetails, SqlDetails, OdcsDetails, \
-    DataContractSpecDetails, UnityDetails, BigQueryDetails
+from src.python.model import AvroDetails, DataContractSpec, DbtDetails, JsonSchemaDetails, MyField, MyModel, MyServer, MyTerms, SqlDetails, OdcsDetails, \
+    DataContractSpecDetails, UnityDetails, BigQueryDetails, MyInfo
 
 input_details = [
     AvroDetails(),
@@ -39,9 +39,6 @@ def init_select_options():
     set_options(output_details, output_select_element, output_option_id_prefix, editor_output)
 
 
-class MyInfo(Info):
-    dbt_version: str = None
-
 
 def import_to_output_type(e):
     input_type = input_select_element.value
@@ -51,12 +48,11 @@ def import_to_output_type(e):
     f.write(input_value)
     f.close()
 
-    init_data_contract = resolve.resolve_data_contract(
-        data_contract_location="https://datacontract.com/datacontract.init.yaml")
     data_contract = DataContractSpecification(info=MyInfo())
-    data_contract.dataContractSpecification = init_data_contract.dataContractSpecification
-    data_contract.id = init_data_contract.id
-    data_contract.info.version = init_data_contract.info.version
+    data_contract.dataContractSpecification = "1.1.0"
+    data_contract.id = "my-data-contract"
+    data_contract.info.title = "My Data Contract"
+    data_contract.info.version = "1.0.0"
 
     import_result = importer_factory.create(input_type).import_source(
         data_contract_specification=data_contract,
@@ -74,7 +70,7 @@ def export_to_data_contract(export_type, input_value):
     if export_type == "odcs":
         data_contract = export_odcs(input_value)
         # fix invalid values in odcs defaults
-        update_api_version = data_contract.replace("apiVersion: 2.3.0", "apiVersion: v2.2.2")
+        update_api_version = data_contract.replace("apiVersion: 2.3.0", "apiVersion: v3.0.2")
         update_dataset_name = update_api_version.replace("datasetDomain: null",
                                                          "datasetDomain: default_domain\ndatasetName: default_name")
         update_quantum_name = update_dataset_name.replace("quantumName: null", "quantumName: default_quantum")
@@ -85,8 +81,42 @@ def export_to_data_contract(export_type, input_value):
 
 
 def export_odcs(data_contract: DataContractSpecification):
+    # Convert to DataContractSpec
+    data_contract_spec = DataContractSpec()
+    # Convert info to MyInfo
+    data_contract_spec.info = MyInfo(
+        title=data_contract.info.title,
+        version=data_contract.info.version,
+        status=data_contract.info.status,
+        description=data_contract.info.description,
+        owner=data_contract.info.owner,
+    )
+    # Convert servers to MyServers
+    for server in data_contract.servers:
+        data_contract_spec.servers[server.name] = MyServer(
+            name=server.name,
+            type=server.type,
+            description=server.description,
+        )
+    # Convert models to MyModels
+    for name, model in data_contract.models.items():
+        # Convert fields to MyFields
+        fields = {}
+        for field_name, field in model.fields.items():
+            fields[field_name] = MyField(
+                name=field_name,
+                type=field.type,
+                description=field.description,
+            )
+        data_contract_spec.models[name] = MyModel(
+            name=name,
+            type=model.type,
+            description=model.description,
+            fields=fields
+        )
+    
     return exporter_factory.create("odcs").export(
-        data_contract=data_contract,
+        data_contract=data_contract_spec,
         model="postgres",
         server=None,
         sql_server_type="postgres",

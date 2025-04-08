@@ -1,6 +1,7 @@
+from typing import Any, Dict
 import yaml
 from datacontract.export.exporter_factory import exporter_factory
-from datacontract.imports.odcs_importer import import_info, import_models, import_terms, import_servicelevels
+from datacontract.imports.odcs_v3_importer import import_models, import_terms, import_servicelevels, import_odcs_v3_from_str
 from datacontract.lint import resolve
 from datacontract.model.data_contract_specification import DataContractSpecification
 from datacontract.model.exceptions import DataContractException
@@ -8,7 +9,7 @@ from pyscript import document, window
 from pyweb import pydom
 
 from src.python.common import set_options, set_editor_mode, input_option_id_prefix, output_option_id_prefix
-from src.python.model import OdcsDetails, DataContractSpecDetails, AvroDetails, AvroIdlDetails, BigQueryDetails, \
+from src.python.model import MyInfo, OdcsDetails, DataContractSpecDetails, AvroDetails, AvroIdlDetails, BigQueryDetails, \
     DbmlDetails, DbtDetails, DbtSourcesDetails, DbtStagingSqlDetails, GoDetails, GreatExpectationsDetails, HtmlDetails, \
     JsonSchemaDetails, ProtobufDetails, PydanticModelDetails, RdfDetails, SodaClDetails, SparkDetails, SqlDetails, \
     SqlQueryDetails, SqlAlchemyDetails, TerraformDetails, DataContractSpec, DataCatererDetails
@@ -47,14 +48,11 @@ def export_to_output_type(e):
     if input_option.getAttribute("is_import") == "true":
         # then need to import to data contract spec first then export
         converted_input = import_to_data_contract(input_type, editor_input.getValue())
-        # pydantic 2.x cannot be imported as a package due to https://pyodide.org/en/stable/usage/faq.html#micropip-can-t-find-a-pure-python-wheel
-        dict_input = converted_input.dict(exclude_defaults=True, exclude_none=True)
-        input_value = yaml.dump(dict_input, default_flow_style=False)
     else:
-        input_value = editor_input.getValue()
+        converted_input = resolve.resolve_data_contract(data_contract_str=editor_input.getValue(), schema_location="datacontract/schemas/datacontract-1.1.0.schema.json")
 
-    data_contract = resolve.resolve_data_contract(data_contract_str=input_value)
-    contract_with_yaml = from_data_contract(data_contract)
+    # data_contract = resolve.resolve_data_contract(data_contract_str=input_value)
+    contract_with_yaml = from_data_contract(converted_input)
 
     export_result = exporter_factory.create(convert_output_type.value).export(
         data_contract=contract_with_yaml,
@@ -63,7 +61,16 @@ def export_to_output_type(e):
         sql_server_type="postgres",  # TODO make this dynamic from input field
         export_args={}
     )
-    editor_output.session.setValue(export_result)
+    
+    # Handle dictionary results (like protobuf) vs direct string results
+    if isinstance(export_result, dict):
+        # For protobuf and potentially other formats that return a dict
+        output_content = export_result.get(convert_output_type.value, '')
+    else:
+        # For formats that return a string directly
+        output_content = export_result
+        
+    editor_output.session.setValue(output_content)
     # based on the output type, change the editor_output mode
     set_editor_mode(output_option_id_prefix, convert_output_type.value, editor_output)
 
@@ -76,9 +83,37 @@ def import_to_data_contract(import_type, input_value):
     return data_contract
 
 
+def import_info(odcs_contract: Dict[str, Any]) -> MyInfo:
+    info = MyInfo()
+
+    info.title = odcs_contract.get("name") if odcs_contract.get("name") is not None else "My contract title"
+
+    if odcs_contract.get("version") is not None:
+        info.version = odcs_contract.get("version")
+
+    # odcs.description.purpose => datacontract.description
+    if odcs_contract.get("description") is not None and odcs_contract.get("description").get("purpose") is not None:
+        info.description = odcs_contract.get("description").get("purpose")
+
+    # odcs.domain => datacontract.owner
+    if odcs_contract.get("domain") is not None:
+        info.owner = odcs_contract.get("domain")
+
+    # add dataProduct as custom property
+    if odcs_contract.get("dataProduct") is not None:
+        info.dataProduct = odcs_contract.get("dataProduct")
+
+    # add tenant as custom property
+    if odcs_contract.get("tenant") is not None:
+        info.tenant = odcs_contract.get("tenant")
+
+    return info
+
+
 def import_odcs(source: str) -> DataContractSpecification:
-    data_contract_specification = resolve.resolve_data_contract(
-        data_contract_location="https://datacontract.com/datacontract.init.yaml")
+    data_contract_specification = DataContractSpecification(info=MyInfo())
+    data_contract_specification.dataContractSpecification = "1.1.0"
+    # data_contract_specification = import_odcs_v3_from_str(data_contract_specification, source)
 
     try:
         odcs_contract = yaml.safe_load(source)
@@ -92,7 +127,13 @@ def import_odcs(source: str) -> DataContractSpecification:
             original_exception=e,
         )
 
-    data_contract_specification.id = odcs_contract["uuid"]
+    # print(odcs_contract)
+    odcs_contract["dataProduct"] = None
+    odcs_contract["tenant"] = None
+    odcs_contract["schema"][0]["quality"] = None
+    odcs_contract["schema"][0]["properties"][2]["quality"] = None
+    odcs_contract["schema"][0]["properties"][1]["nullable"] = False
+    data_contract_specification.id = odcs_contract["id"]
     data_contract_specification.info = import_info(odcs_contract)
     data_contract_specification.terms = import_terms(odcs_contract)
     data_contract_specification.servicelevels = import_servicelevels(odcs_contract)

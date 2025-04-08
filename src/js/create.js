@@ -37,14 +37,29 @@ function initInputSchemaListener() {
 function initOutputSchemaListener() {
     const selectSchema = document.getElementById("convert-output-type")
 
-    selectSchema.addEventListener("change", function () {
-        const newSession = ace.createEditSession("")
-        editorOutput.setSession(newSession)
+    selectSchema.addEventListener("change", async function () {
+        console.log("selectSchema.addEventListener", this.value)
         const outputOption = document.getElementById(`output-${this.value}`)
         const editorMode = outputOption.getAttribute("editor_mode")
+        
+        // Reinitialize the entire editor session
+        editorOutput = ace.edit("output-text")
         setupEditorSession(editorOutput, `ace/mode/${editorMode}`)
+        
         const schemaDetails = jsonSchemaMap.get(this.value)
-        provider.setSessionOptions(editorOutput.session, {schemaUri: schemaDetails.schemaUrl})
+        if (schemaDetails && schemaDetails.schemaUrl) {
+            console.log("Setting schema URL:", schemaDetails.schemaUrl)
+            await setJsonSchema(jsonSchemaMap, jsonSchemaExampleMap, editorOutput, provider, this.value)
+        } else {
+            console.log("No schema URL found for", this.value)
+            provider.setSessionOptions(editorOutput.session, {schemaUri: null})
+        }
+
+        // Trigger the convert button click after schema change
+        const convertBtn = document.getElementById("convert-btn")
+        if (convertBtn) {
+            convertBtn.click()
+        }
     }, false)
 }
 

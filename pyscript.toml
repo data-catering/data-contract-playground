@@ -9,7 +9,9 @@ packages = [
   "simple-ddl-parser",
   "rdflib",
   "jinja_partials",
-  "pytz"
+  "jinja2",
+  "pytz",
+  "sqlglot"
 ]
 
 [files]
@@ -27,6 +29,7 @@ packages = [
 [[fetch]]
 files = [
   "data_contract.py",
+  "engines/data_contract_checks.py",
   "export/exporter.py",
   "export/exporter_factory.py",
   "export/avro_converter.py",
@@ -40,7 +43,8 @@ files = [
   "export/great_expectations_converter.py",
   "export/html_export.py",
   "export/jsonschema_converter.py",
-  "export/odcs_converter.py",
+  "export/odcs_v3_exporter.py",
+  "export/pandas_type_converter.py",
   "export/protobuf_converter.py",
   "export/pydantic_converter.py",
   "export/rdf_converter.py",
@@ -58,14 +62,21 @@ files = [
   "imports/dbt_importer.py",
   "imports/jsonschema_importer.py",
   "imports/odcs_importer.py",
+  "imports/odcs_v3_importer.py",
   "imports/sql_importer.py",
   "imports/unity_importer.py",
   "lint/files.py",
   "lint/resolve.py",
+  "lint/resources.py",
   "lint/schema.py",
   "lint/urls.py",
   "model/data_contract_specification.py",
   "model/exceptions.py",
+  "model/odcs.py",
+  "model/run.py",
+  "schemas/datacontract-1.1.0.init.yaml",
+  "schemas/datacontract-1.1.0.schema.json",
+  "schemas/odcs-3.0.1.schema.json",
   "templates/datacontract.html",
   "templates/index.html",
   "templates/partials/datacontract_information.html",

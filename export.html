@@ -29,7 +29,9 @@
 
     <script type="module">
         const loading = document.getElementById('loading');
-        addEventListener('py:ready', () => loading.close());
+        addEventListener('py:ready', async () => {
+            loading.close()
+        });
         loading.showModal();
     </script>
 
@@ -107,6 +109,7 @@
                 </div>
             </div>
         </main>
+        <script type="py" src="src/python/pyodide-patches.py"></script>
         <script type="py" src="src/python/main.py" config="./pyscript.toml"></script>
     </section>
 </div>
