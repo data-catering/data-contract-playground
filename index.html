@@ -20,6 +20,7 @@
     <script src="https://www.unpkg.com/ace-builds@latest/src-noconflict/ext-language_tools.js"></script>
     <script src="https://www.unpkg.com/ace-builds@latest/src-noconflict/mode-yaml.js"></script>
     <script src="https://www.unpkg.com/ace-builds@latest/src-noconflict/theme-chrome.js"></script>
+    <script src="https://www.unpkg.com/ace-builds@latest/src-noconflict/theme-twilight.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ace-linters"></script>
 
     <link rel="icon" href="./image/data_catering_transparent.svg"/>
@@ -42,15 +43,16 @@
 </head>
 <body>
 <div class="top-banner">
-  <span>
-      <div class="logo-title">
-        <a href="https://data.catering/"><img class="logo" src="./image/data_catering_transparent.svg" alt="logo"/></a>
-        <b>Data Contract Playground</b>
-      </div>
-  </span>
+  <div class="logo-title">
+    <a href="https://data.catering/"><img class="logo" src="./image/data_catering_transparent.svg" alt="logo"/></a>
+    <b>Data Contract Playground</b>
+  </div>
+  <div class="header-actions">
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">Theme</button>
     <a class="github-button" href="https://github.com/data-catering/data-contract-playground"
        data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large"
        data-show-count="true" aria-label="Star data-catering/data-contract-playground on GitHub">Star</a>
+  </div>
 </div>
 <nav class="topnav">
     <a href="create.html">Create</a>
@@ -101,7 +103,7 @@
                 <li><a href="https://medium.com/@pflooky" target="_blank"><i class="fa fa-medium fa-2x"></i></a></li>
             </ul>
         </div>
-        <a class="link footer-right" href="https://data.catering/about/#contact" target="_blank">contact</a>
+        <a class="link footer-right" href="https://data.catering/latest/about" target="_blank">contact</a>
     </div>
 </footer>
 <script type="module" src="src/js/index.js"></script>

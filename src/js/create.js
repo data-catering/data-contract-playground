@@ -1,4 +1,5 @@
 import {setJsonSchema, setupEditorSession} from "./util.js";
+import {applyInitialTheme, initThemeToggle} from "./theme.js";
 import {dataContractSpecificationDetails, defaultJsonSchemaName, odcsDetails} from "./config.js";
 
 const jsonSchemaMap = new Map()
@@ -63,7 +64,9 @@ function initOutputSchemaListener() {
     }, false)
 }
 
+applyInitialTheme()
 initOutputAceEditor()
 initInputAceEditor()
 initInputSchemaListener()
 initOutputSchemaListener()
+initThemeToggle("theme-toggle", [editorInput, editorOutput])

@@ -1,89 +1,106 @@
-html {
-    height: 100%;
-}
+html { height: 100%; }
 
-main {
-    flex: 1;
-}
+main { flex: 1; }
 
 body {
-    font-family: sans-serif;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
     margin: 0;
     height: 100%;
     display: flex;
     flex-direction: column;
+    color: var(--text);
+    background-color: var(--background);
+}
+
+/* Theme variables */
+:root {
+  --background: #ffffff;
+  --surface: #f6f7f9;
+  --surface-hover: #eceff3;
+  --text: #1a1f2b;
+  --text-strong: #0f1420;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --button-bg: #1d3354;
+  --button-bg-hover: #25466f;
+  --button-text: #ffffff;
+}
+
+[data-theme="dark"] {
+  --background: #0e1116;
+  --surface: #151922;
+  --surface-hover: #1b2130;
+  --text: #e5e7eb;
+  --text-strong: #ffffff;
+  --muted: #9aa4b2;
+  --border: #202637;
+  --button-bg: #334155;
+  --button-bg-hover: #3f4f66;
+  --button-text: #ffffff;
 }
 
 .top-banner {
     height: fit-content;
-    background-color: #95aab6;
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    padding: 8px 12px;
 }
 
-.top-banner span {
-    font-size: 17px;
-    align-content: center;
-    padding: 5px;
+.top-banner span { font-size: 17px; align-content: center; }
+
+.logo-title { display: flex; align-items: center; gap: 8px; color: var(--text-strong); }
+
+.logo { height: 28px; width: auto; display: block; }
+
+.header-actions { display: flex; align-items: center; gap: 12px; }
+
+.theme-toggle {
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--button-bg);
+    color: var(--button-text);
+    border-radius: 8px;
+    padding: 6px 10px;
 }
 
-.logo-title {
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-    padding: 5px;
-    height: 30px;
-    width: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.theme-toggle:hover { background: var(--button-bg-hover); }
 
 .topnav {
-    background-color: #95aab6;
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 4px;
+    padding: 4px 8px;
 }
 
 .topnav a {
-    color: black;
-    float: left;
+    color: var(--text);
     text-align: center;
     padding: 8px 10px;
     text-decoration: none;
-    font-size: 17px;
-
-    &:hover {
-        color: #45405f;
-        background-color: lightgrey;
-    }
+    font-size: 15px;
+    border-radius: 8px;
 }
+
+.topnav a:hover { color: var(--text-strong); background-color: var(--surface-hover); }
 
 .data-contract-type-container {
     padding: 10px;
     display: flex;
     align-items: center;
+    gap: 12px;
 }
 
-.github-links-container {
-    padding-left: 10px;
-}
+.github-links-container { padding-left: 10px; }
 
-.github-link {
-    display: none;
-}
+.github-link { display: none; }
 
-.code {
-    width: 80%;
-    height: 75vh;
-}
+.code { width: 80%; height: 75vh; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
 
-footer {
-    position: relative;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-}
+footer { position: relative; left: 0; bottom: 0; width: 100%; }
 
 .footer-container {
     display: flex;
@@ -92,29 +109,18 @@ footer {
     margin-top: 10px;
     bottom: 0;
     padding: 10px 8px;
-    background-color: #95aab6;
+    background-color: var(--surface);
+    border-top: 1px solid var(--border);
 }
 
-.footer-container a {
-    color: #f5f6f7;
-    text-decoration: none;
-    font-weight: bold;
+.footer-container a { color: var(--text); text-decoration: none; font-weight: 600; }
+.footer-container a:hover { color: var(--text-strong); }
 
-    &:hover {
-        color: #45405f;
-    }
-}
+.footer-container ul { display: flex; padding: 0; gap: 24px; list-style-type: none; }
 
-.footer-container ul {
-    display: flex;
-    padding: 0;
-    gap: 24px;
-    list-style-type: none;
-}
+.copyright { padding: 4px 0; text-align: center; color: var(--muted); background-color: var(--surface); }
 
-.copyright {
-    padding: 4px 0;
-    text-align: center;
-    color: #95AAB6;
-    background-color: #f5f6f7;
+/* Responsive */
+@media (max-width: 900px) {
+  .code { width: 100%; height: 60vh; }
 }

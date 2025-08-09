@@ -4,7 +4,9 @@
   "description": "Playground site for creating/validating data contracts",
   "main": "src/js/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "serve": "http-server -p 5173 -c-1 ."
   },
   "repository": {
     "type": "git",
@@ -22,5 +24,9 @@
   "bugs": {
     "url": "https://github.com/data-catering/data-contract-playground/issues"
   },
-  "homepage": "https://github.com/data-catering/data-contract-playground#readme"
+  "homepage": "https://github.com/data-catering/data-contract-playground#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.45.0",
+    "http-server": "^14.1.1"
+  }
 }

@@ -130,3 +130,22 @@ dist
 .pnp.*
 
 .idea
+
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+
+# Playwright artifacts
+playwright-report/
+test-results/
+blob-report/
+
+# Python caches/venvs (used by PyScript dev helpers)
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.venv/
+venv/

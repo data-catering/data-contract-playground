@@ -35,12 +35,9 @@
   color: white;
   background-color: #1D3354;
   padding: 10px;
-
-  &:hover {
-    background-color: #467599;
-    cursor: pointer;
-  }
 }
+
+#convert-btn:hover { background-color: #467599; cursor: pointer; }
 
 .code-container {
   flex: 1;

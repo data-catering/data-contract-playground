@@ -22,7 +22,7 @@ export async function setJsonSchema(jsonSchemaMap, exampleMap, aceEditor, provid
 
 export function setupEditorSession(editor, mode) {
     editor.session.setMode(mode)
-    editor.setTheme("ace/theme/chrome")
+    editor.setTheme(getCurrentAceTheme())
     editor.setOptions({
         autoScrollEditorIntoView: true,
         customScrollbar: true,
@@ -42,5 +42,10 @@ async function getUrlContentText(url) {
         .catch(err => {
             console.log(err)
         })
+}
+
+export function getCurrentAceTheme() {
+    const theme = document.documentElement.dataset.theme || "light"
+    return theme === "dark" ? "ace/theme/twilight" : "ace/theme/chrome"
 }
 

@@ -1,4 +1,5 @@
-import {setJsonSchema, setupEditorSession} from "./util.js";
+import {getCurrentAceTheme, setJsonSchema, setupEditorSession} from "./util.js";
+import {applyInitialTheme, initThemeToggle} from "./theme.js";
 import {dataContractSpecificationDetails, defaultJsonSchemaName, odcsDetails} from "./config.js";
 
 const jsonSchemaMap = new Map()
@@ -7,6 +8,7 @@ jsonSchemaMap.set("dataContractSpecification", dataContractSpecificationDetails)
 const exampleMap = new Map()
 let provider = LanguageProvider.fromCdn("https://cdn.jsdelivr.net/npm/ace-linters/build")
 let editorInput = ace.edit("input-yaml")
+let editorOutput = null
 
 async function initInputAceEditor() {
     ace.require("ace/ext/language_tools")
@@ -26,5 +28,35 @@ function initInputSchemaListener() {
     }, false)
 }
 
+applyInitialTheme()
 initInputAceEditor()
 initInputSchemaListener()
+initThemeToggle("theme-toggle", [editorInput])
+
+// Ensure output editor adopts current theme when it's initialized (PyScript or lazy)
+function ensureOutputThemeSync() {
+    const target = document.getElementById('output-text')
+    if (!target) return
+    const applyTheme = () => {
+        try {
+            editorOutput = ace.edit("output-text")
+            editorOutput.setTheme(getCurrentAceTheme())
+        } catch (e) {}
+    }
+    if (target.querySelector('.ace_scroller')) { applyTheme(); return }
+    const observer = new MutationObserver(() => {
+        if (target.querySelector('.ace_scroller')) { applyTheme(); observer.disconnect() }
+    })
+    observer.observe(target, { childList: true, subtree: true })
+}
+ensureOutputThemeSync()
+
+// Also update output editor theme on toggle
+const themeBtn = document.getElementById("theme-toggle")
+if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+        if (editorOutput) {
+            try { editorOutput.setTheme(getCurrentAceTheme()) } catch (e) {}
+        }
+    })
+}

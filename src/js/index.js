@@ -1,4 +1,5 @@
 import {setJsonSchema, setupEditorSession} from "./util.js";
+import {applyInitialTheme, initThemeToggle} from "./theme.js";
 import {
     dataContractSpecificationDetails,
     dataProductSpecificationDetails,
@@ -44,5 +45,7 @@ function initSelectSchemaListener() {
     }, false)
 }
 
+applyInitialTheme()
 initAceEditor()
 initSelectSchemaListener()
+initThemeToggle("theme-toggle", [editor])
